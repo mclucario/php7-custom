@@ -37,4 +37,16 @@ RUN set -ex; \
     chmod +x /usr/bin/mhsendmail; \
     echo 'sendmail_path = "/usr/bin/mhsendmail --smtp-addr=mailhog:1025"' > /usr/local/etc/php/conf.d/mailhog.ini
 
+RUN set -ex; \
+    \
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; \
+    chmod +x wp-cli.phar; \
+    mv wp-cli.phar /bin/wp
+
+RUN set -ex; \
+    \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"; \
+    php composer-setup.php --filename=composer --install-dir=/bin/ --version=1.9.1; \
+    php -r "unlink('composer-setup.php');"
+
 EXPOSE 9000
