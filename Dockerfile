@@ -29,6 +29,7 @@ RUN set -ex; \
     \
     docker-php-ext-install pdo_mysql; \
     \
+    pecl install redis; \
     docker-php-ext-enable redis; \
     \
     pecl install mcrypt-1.0.2; \
